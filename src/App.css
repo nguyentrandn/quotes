@@ -37,7 +37,10 @@ body {
 }
 
 .head {
+  display: flex;
+  align-items: center;
   width: 100%;
+  min-height: 100px; 
   height: 40%;
   font-family: 'League Spartan', sans-serif;
 }
@@ -73,7 +76,7 @@ i{
 .loading {
   position: absolute;
   left: 50%;
-  top: 60%;
+  top: 80%;
   transform: translate(-50% -50%);
   color: rgba(22, 24, 35, 0.34);
 }

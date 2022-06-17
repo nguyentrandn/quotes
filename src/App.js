@@ -4,6 +4,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 import "./App.css";
+import ScrollReveal from "scrollreveal";
 
 function App() {
   const [state, setState] = useState("");
@@ -11,6 +12,7 @@ function App() {
   const [click, setClick] = useState(1);
   const [translate, setTranslate] = useState("");
   const [tag, setTag] = useState([]);
+
 
   useEffect(() => {
     const options = {
@@ -50,13 +52,17 @@ function App() {
         "X-RapidAPI-Host": "nlp-translation.p.rapidapi.com",
       },
     };
-
+  
     let trans = () => {
       axios
         .request(options)
         .then(function (response) {
+         
           setTranslate(response.data.translated_text.vi);
           setLoading(false);
+          ScrollReveal().reveal('.trans', {delay : 900 , origin: 'bottom', interval: 700})
+        
+          
         })
         .catch(function (error) {
           setLoading(true);
@@ -65,6 +71,17 @@ function App() {
     trans();
   }, [state]);
 
+  // ----ScrollReveal----
+  useEffect( () =>  {
+    ScrollReveal({
+      reset: true,
+      distance: '60px',
+      duration: 2500,
+      delay: 400
+    })
+    ScrollReveal().reveal('.card', {delay : 500 , origin: 'top'})
+    ScrollReveal().reveal('.body', {delay : 700 , origin: 'bottom'})
+  },[])
   return (
     <div className="app">
       <div className="card" id="card">
@@ -86,11 +103,14 @@ function App() {
         
         {/* ko co loading thi moi hien thi ra */}
         <div className="body">
-          {!loading && <h1>{translate}</h1>}
+        
+          {!loading && <h1 className="trans">{translate}</h1>}
           {loading && <FontAwesomeIcon icon={faSpinner} className="loading" />}
         </div>
       </div>
+      
     </div>
+    
   );
 }
 
